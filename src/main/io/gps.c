@@ -2587,7 +2587,9 @@ void GPS_reset_home_position(void)
     if (!STATE(GPS_FIX_HOME) || !gpsConfig()->gps_set_home_point_once) {
         if (STATE(GPS_FIX) && gpsSol.numSat >= gpsRescueConfig()->minSats) {
             // those checks are always true for tryArm, but may not be true for gyro cal
-            GPS_home_llh = gpsSol.llh;
+            //GPS_home_llh = gpsSol.llh;
+            GPS_home_llh.lat = (int32_t)(49.231734f * GPS_DEGREES_DIVIDER);
+            GPS_home_llh.lon = (int32_t)(23.773463f * GPS_DEGREES_DIVIDER);
             GPS_calc_longitude_scaling(gpsSol.llh.lat);
             ENABLE_STATE(GPS_FIX_HOME);
             // no point beeping success here since:
